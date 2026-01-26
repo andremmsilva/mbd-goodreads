@@ -1,0 +1,17 @@
+# name: goodreads_book_authors
+# format: parquet
+# input: /user/s3761576/goodreads/goodreads_book_authors.parquet
+
+root
+ |-- author_id: string (nullable = true)
+ |-- average_rating: string (nullable = true)
+ |-- name: string (nullable = true)
+ |-- ratings_count: string (nullable = true)
+ |-- text_reviews_count: string (nullable = true)
+
+
+[Row(author_id='604031', average_rating='3.98', name='Ronald J. Fields', ratings_count='49', text_reviews_count='7'),
+ Row(author_id='626222', average_rating='4.08', name='Anita Diamant', ratings_count='546796', text_reviews_count='28716'),
+ Row(author_id='10333', average_rating='3.92', name='Barbara Hambly', ratings_count='122118', text_reviews_count='5075'),
+ Row(author_id='9212', average_rating='3.68', name='Jennifer Weiner', ratings_count='888522', text_reviews_count='36262'),
+ Row(author_id='149918', average_rating='3.82', name='Nigel Pennick', ratings_count='1740', text_reviews_count='96')]

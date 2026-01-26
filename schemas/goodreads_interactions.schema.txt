@@ -1,0 +1,22 @@
+# name: goodreads_interactions
+# format: parquet
+# input: /user/s3761576/goodreads/goodreads_interactions_dedup.parquet
+
+root
+ |-- book_id: string (nullable = true)
+ |-- date_added: string (nullable = true)
+ |-- date_updated: string (nullable = true)
+ |-- is_read: boolean (nullable = true)
+ |-- rating: long (nullable = true)
+ |-- read_at: string (nullable = true)
+ |-- review_id: string (nullable = true)
+ |-- review_text_incomplete: string (nullable = true)
+ |-- started_at: string (nullable = true)
+ |-- user_id: string (nullable = true)
+
+
+[Row(book_id='25015753', date_added='Thu Mar 05 07:32:12 -0800 2015', date_updated='Thu Mar 05 07:32:16 -0800 2015', is_read=False, rating=0, read_at='', review_id='9084b04df260cd12db3163249b7cb5d9', review_text_incomplete='', started_at='', user_id='c937c66a81c459894fa59645d7ebd720'),
+ Row(book_id='17289229', date_added='Thu Mar 05 07:26:05 -0800 2015', date_updated='Thu Mar 05 07:26:09 -0800 2015', is_read=False, rating=0, read_at='', review_id='0730cd8b3c75d53c0dc1aab221b52cfa', review_text_incomplete='', started_at='', user_id='c937c66a81c459894fa59645d7ebd720'),
+ Row(book_id='23348814', date_added='Tue Mar 03 08:19:07 -0800 2015', date_updated='Tue Sep 08 12:22:17 -0700 2015', is_read=True, rating=4, read_at='Tue Sep 08 12:22:17 -0700 2015', review_id='3c133b06fe1b3e470aca0114e8c84ddd', review_text_incomplete='I downloaded Souls of the Never as a free book from Amazon. This was a little out of my usual genre, with the mix of sci-fi elements, but I have to admit, I liked the way the author blended genres and lore to create a unique fantasy novel. I was a little lost when things got fast paced (in an alr...', started_at='Thu Sep 03 00:00:00 -0700 2015', user_id='c937c66a81c459894fa59645d7ebd720'),
+ Row(book_id='16173427', date_added='Tue Mar 03 08:11:52 -0800 2015', date_updated='Thu Mar 12 17:18:14 -0700 2015', is_read=True, rating=5, read_at='Thu Mar 12 00:00:00 -0700 2015', review_id='77e5d066ba4a936345f89653070cabf1', review_text_incomplete='I checked Bound by Flame (Night Prince, book 3) out from my local library. This book was a lot darker than others of the series (torture,etc), but it was an excellent progression of the plot line. Love the writing and the creativity of the author to make a twist work.', started_at='Tue Mar 03 00:00:00 -0800 2015', user_id='c937c66a81c459894fa59645d7ebd720'),
+ Row(book_id='22103788', date_added='Mon Mar 02 11:12:09 -0800 2015', date_updated='Mon Mar 02 11:12:10 -0800 2015', is_read=False, rating=0, read_at='', review_id='128a079c5a9a9d3a01a3e87eb562558d', review_text_incomplete='', started_at='', user_id='c937c66a81c459894fa59645d7ebd720')]

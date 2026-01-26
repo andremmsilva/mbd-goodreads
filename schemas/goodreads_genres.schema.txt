@@ -1,0 +1,24 @@
+# name: goodreads_genres
+# format: parquet
+# input: /user/s3761576/goodreads/goodreads_book_genres_initial.parquet
+
+root
+ |-- book_id: string (nullable = true)
+ |-- genres: struct (nullable = true)
+ |    |-- children: long (nullable = true)
+ |    |-- comics, graphic: long (nullable = true)
+ |    |-- fantasy, paranormal: long (nullable = true)
+ |    |-- fiction: long (nullable = true)
+ |    |-- history, historical fiction, biography: long (nullable = true)
+ |    |-- mystery, thriller, crime: long (nullable = true)
+ |    |-- non-fiction: long (nullable = true)
+ |    |-- poetry: long (nullable = true)
+ |    |-- romance: long (nullable = true)
+ |    |-- young-adult: long (nullable = true)
+
+
+[Row(book_id='28159374', genres=Row(children=None, comics, graphic=None, fantasy, paranormal=None, fiction=8, history, historical fiction, biography=None, mystery, thriller, crime=None, non-fiction=None, poetry=None, romance=11, young-adult=None)),
+ Row(book_id='6237769', genres=Row(children=None, comics, graphic=None, fantasy, paranormal=135, fiction=14, history, historical fiction, biography=None, mystery, thriller, crime=None, non-fiction=None, poetry=None, romance=None, young-adult=None)),
+ Row(book_id='17262416', genres=Row(children=116, comics, graphic=None, fantasy, paranormal=77, fiction=94, history, historical fiction, biography=25, mystery, thriller, crime=5, non-fiction=None, poetry=None, romance=None, young-adult=4)),
+ Row(book_id='17262419', genres=Row(children=68, comics, graphic=None, fantasy, paranormal=None, fiction=322, history, historical fiction, biography=313, mystery, thriller, crime=75, non-fiction=3, poetry=None, romance=None, young-adult=47)),
+ Row(book_id='11357050', genres=Row(children=None, comics, graphic=None, fantasy, paranormal=None, fiction=13, history, historical fiction, biography=12, mystery, thriller, crime=None, non-fiction=None, poetry=None, romance=None, young-adult=None))]

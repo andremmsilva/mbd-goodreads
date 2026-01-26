@@ -1,0 +1,23 @@
+# name: goodreads_reviews
+# format: parquet
+# input: /user/s3761576/goodreads/goodreads_reviews_dedup.parquet
+
+root
+ |-- book_id: string (nullable = true)
+ |-- date_added: string (nullable = true)
+ |-- date_updated: string (nullable = true)
+ |-- n_comments: long (nullable = true)
+ |-- n_votes: long (nullable = true)
+ |-- rating: long (nullable = true)
+ |-- read_at: string (nullable = true)
+ |-- review_id: string (nullable = true)
+ |-- review_text: string (nullable = true)
+ |-- started_at: string (nullable = true)
+ |-- user_id: string (nullable = true)
+
+
+[Row(book_id='12640991', date_added='Sat Jun 07 11:44:57 -0700 2014', date_updated='Sat Jun 07 12:09:55 -0700 2014', n_comments=0, n_votes=0, rating=5, read_at='Sat Jun 07 12:09:55 -0700 2014', review_id='69cb3a13a74940783922ab1c8bb7c387', review_text='Those crazy customers! What will they say next?', started_at='Sat Jun 07 00:00:00 -0700 2014', user_id='6365d62d4242a3ca3081be8cada855d3'),
+ Row(book_id='1028357', date_added='Mon Jun 02 16:20:38 -0700 2014', date_updated='Mon Jun 02 16:21:20 -0700 2014', n_comments=0, n_votes=0, rating=5, read_at='', review_id='7198ba82abc0a2e8afe10b1d1f223356', review_text='an elegant little book with sweet sepia photographs.', started_at='', user_id='6365d62d4242a3ca3081be8cada855d3'),
+ Row(book_id='2506264', date_added='Mon Jun 02 16:17:09 -0700 2014', date_updated='Mon Jun 02 16:17:45 -0700 2014', n_comments=0, n_votes=0, rating=5, read_at='', review_id='46d10c142cc7b80232110f4bb3898a93', review_text="Lucy's lemon bars are luscious!", started_at='', user_id='6365d62d4242a3ca3081be8cada855d3'),
+ Row(book_id='17276206', date_added='Mon Jun 02 16:13:47 -0700 2014', date_updated='Mon Jun 02 16:14:29 -0700 2014', n_comments=0, n_votes=0, rating=5, read_at='Tue Jun 03 00:00:00 -0700 2014', review_id='084c25847c45ac89ab94d7bc461a2ee2', review_text='the pictures and the recipes are superb, and you just might find a clandestine cake club near you!', started_at='', user_id='6365d62d4242a3ca3081be8cada855d3'),
+ Row(book_id='2433240', date_added='Mon Jun 02 15:57:42 -0700 2014', date_updated='Wed Jul 02 16:08:58 -0700 2014', n_comments=0, n_votes=0, rating=5, read_at='Mon Jun 02 15:57:59 -0700 2014', review_id='e00d5c22b5d8cfc20050b287bd0b0854', review_text='A charming addition to any home.', started_at='', user_id='6365d62d4242a3ca3081be8cada855d3')]
