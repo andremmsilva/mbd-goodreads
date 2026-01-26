@@ -18,8 +18,8 @@ OUT_FILE = "rq3_genre_comparison.png"
 
 # Change these:
 K_TOP = 5              # plot top-K genres + romantasy
-MIN_YEAR = 1999         # crop (recommended: 1990 or 2000)
-MAX_YEAR = 2017         # interactions seem to stop at 2017 in your data
+MIN_YEAR = 2007         # crop 
+MAX_YEAR = 2017         
 
 HIGHLIGHT_GENRE = "romantasy"
 # ===========================================

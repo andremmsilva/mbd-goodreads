@@ -13,7 +13,7 @@ PUB_YEAR_PATH = "pub_year_trend_thresh_"
 INTERACTION_YEAR_PATH = "interaction_year_trend_thresh_"
 THRESH = 10
 
-MIN_PLOT_YEAR = 1995
+MIN_PLOT_YEAR = 2007
 MAX_PLOT_YEAR = 2017
 
 def find_single_csv(folder: str) -> str:
