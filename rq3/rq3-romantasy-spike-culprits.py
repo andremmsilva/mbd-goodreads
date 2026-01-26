@@ -2,13 +2,6 @@
 from datetime import datetime
 from pyspark.sql import SparkSession, functions as F, types as T
 
-# -------- PATHS --------
-PATH_GENRES = "/user/s3761576/goodreads/goodreads_book_genres_initial.parquet"
-PATH_BOOKS  = "/user/s3761576/goodreads/goodreads_books.parquet"
-PATH_INTERACTIONS = "/user/s3761576/goodreads/goodreads_interactions_dedup.parquet"
-
-OUT_PATH = "./romantasy_out/top_romantasy_books_2001_2004"
-
 # -------- PARAMETERS --------
 THRESH = 10
 RATIO = 0.2
@@ -18,6 +11,13 @@ END_YEAR = 2004
 
 FANTASY_KEY = "fantasy, paranormal"
 ROMANCE_KEY = "romance"
+
+# -------- PATHS --------
+PATH_GENRES = "/user/s3761576/goodreads/goodreads_book_genres_initial.parquet"
+PATH_BOOKS  = "/user/s3761576/goodreads/goodreads_books.parquet"
+PATH_INTERACTIONS = "/user/s3761576/goodreads/goodreads_interactions_dedup.parquet"
+
+OUT_PATH = f"./romantasy_out/top_romantasy_books_{START_YEAR}_{END_YEAR}_THRESH_{THRESH}"
 
 # -------- Helpers --------
 def log(msg: str):
@@ -72,7 +72,7 @@ def main():
         spark.read.parquet(PATH_INTERACTIONS)
         .select("book_id", "date_added")
         .where(F.col("date_added").isNotNull())
-        .withColumn("added_year", F.regexp_extract("date_added", r"(\\d{4})$", 1).cast("int"))
+        .withColumn("added_year", F.regexp_extract("date_added", r"(\d{4})$", 1).cast("int"))
         .where((F.col("added_year") >= START_YEAR) & (F.col("added_year") <= END_YEAR))
         .select("book_id")
     )
@@ -81,36 +81,28 @@ def main():
     log("3) Counting interactions per romantasy book...")
     romantasy_inter = inter.join(romantasy_books, on="book_id", how="inner")
 
+    total_all = inter.count()
+    total_rom = romantasy_inter.count()
+    log(f"Total interactions in window: {total_all:,}")
+    log(f"Romantasy interactions in window: {total_rom:,}")
+
     book_counts = (
         romantasy_inter.groupBy("book_id")
-        .agg(F.count("*").alias("n_interactions"))
+        .agg(F.count("*").alias("n_romantasy_interactions"))
     )
 
-    total_interactions = book_counts.agg(F.sum("n_interactions")).collect()[0][0]
-
-    ranked = (
-        book_counts
-        .withColumn("interaction_share", F.col("n_interactions") / F.lit(total_interactions))
-        .orderBy(F.col("n_interactions").desc())
-    )
-
-    # 4) Add book titles
-    log("4) Joining book metadata...")
     books = spark.read.parquet(PATH_BOOKS).select("book_id", "title")
 
     result = (
-        ranked.join(books, on="book_id", how="left")
-        .select(
-            "book_id",
-            "title",
-            "n_interactions",
-            "interaction_share"
-        )
+        book_counts.join(books, on="book_id", how="left")
+        .withColumn("share_within_romantasy", F.col("n_romantasy_interactions") / F.lit(total_rom))
+        .withColumn("share_of_total", F.col("n_romantasy_interactions") / F.lit(total_all))
+        .orderBy(F.col("share_within_romantasy").desc(), F.col("n_romantasy_interactions").desc())
     )
 
-    # 5) Write top books to CSV
+    # 4) Write top books to CSV
     log("5) Writing top romantasy books table...")
-    result.limit(20).coalesce(1).write.mode("overwrite").option("header", True).csv(OUT_PATH)
+    result.limit(50).coalesce(1).write.mode("overwrite").option("header", True).csv(OUT_PATH)
 
     log(f"DONE. Output written to {OUT_PATH}")
     spark.stop()
