@@ -5,7 +5,7 @@ from pyspark.sql.window import Window
 
 # -------- PATHS --------
 PATH_INTERACTIONS = "/user/s3761576/goodreads/goodreads_interactions_dedup.parquet"
-PATH_REVIEWS = "/user/s3761576/goodreads/goodreads_reviews_dedup.json"
+PATH_REVIEWS = "/user/s3761576/goodreads/goodreads_reviews_dedup.parquet"
 PATH_BOOKS = "/user/s3761576/goodreads/goodreads_books.parquet"
 
 OUT_PATH = "./rq1_out/rating_decay_by_class"
@@ -43,7 +43,7 @@ def main():
 
     log("1) Reading interactions and extracting YYYYMM...")
     inter = (
-        spark.read.parquet(args.interactions)
+        spark.read.parquet(PATH_INTERACTIONS)
         .select(F.col("book_id").cast("long").alias("book_id"), "date_added")
         .where(F.col("date_added").isNotNull() & (F.length("date_added") > 0))
     )
@@ -116,13 +116,13 @@ def main():
     )
 
     log("8) Join titles for printing...")
-    books = spark.read.parquet(args.books).select(F.col("book_id").cast("long").alias("book_id"), "title")
+    books = spark.read.parquet(PATH_BOOKS).select(F.col("book_id").cast("long").alias("book_id"), "title")
     feats_t = feats.join(books, on="book_id", how="left")
 
     # ---- 2) Load reviews with ratings ----
     log("9) Loading reviews with ratings...")
     reviews = (
-        spark.read.json(PATH_REVIEWS)
+        spark.read.parquet(PATH_REVIEWS)
         .select(
             F.col("book_id").cast("long").alias("book_id"),
             "date_added",
